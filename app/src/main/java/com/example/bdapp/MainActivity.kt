@@ -21,8 +21,10 @@ import com.example.bdapp.SchoolSubmitPage.Companion.Submitschool
 import com.example.bdapp.SemesterResultView.Companion.SemesterResult
 import com.example.bdapp.StartPage.Companion.Startpage
 import com.example.bdapp.SubmitPage.Companion.Submit
+import com.example.bdapp.createaccount.Companion.Createaccount
 import com.example.bdapp.databaseinfo.Companion.Databaseinfo
 import com.example.bdapp.eiinnumberverifiy.Companion.EnterEIIN
+import com.example.bdapp.password.Companion.Password
 import com.example.bdapp.subscribepage.Companion.SubscribePage
 import com.example.bdapp.ui.theme.BdappTheme
 
@@ -47,6 +49,12 @@ class MainActivity : ComponentActivity() {
             referenceNo = "",
             otp = ""
         )
+        var Create = create(
+            eiin="",
+            phone = "",
+            password = ""
+        );
+      //  var create: create?=null
 
 
     }
@@ -111,6 +119,12 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("unsubscribe"){
                             Databaseinfo(navController)
+                        }
+                        composable("createaccount"){
+                            Createaccount(navController)
+                        }
+                        composable("password"){
+                            Password(navController)
                         }
                     }
 

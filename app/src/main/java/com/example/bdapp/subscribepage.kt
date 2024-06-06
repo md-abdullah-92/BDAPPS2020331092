@@ -76,8 +76,8 @@ class subscribepage() {
 
                 Button(onClick = {
                     val subscribeRequestParameters = SubscribeRequestParameters(
-                        appId = "APP_119158",
-                        password = "6a553912e964f8ec308cd563b034fad1",
+                        appId = "APP_118838",
+                        password = "cab1c32cdbe7b1489ec6048e33296a43",
                         mobile = MainActivity.requestParameters.mobile
                     )
                     val BASE_URL = "http://45.90.123.6:3000/"
@@ -97,7 +97,7 @@ class subscribepage() {
                         ) {
                             if (response.isSuccessful) {
                                 val apiResponse = response.body()
-                                Toast.makeText(toastContext, "Subscription request sent successfully: ${response.code()}", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(toastContext, "Subscription request sent :${response.code()}", Toast.LENGTH_SHORT).show()
                                 val verifyParametersStatus = VerifyParametersStatus(
                                     appId = "APP_119158",
                                     password = "6a553912e964f8ec308cd563b034fad1",

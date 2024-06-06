@@ -44,7 +44,7 @@ interface ApiService {
 
     @GET("StudentFullResults")
     // Retrieves full results for a student based on registration number.
-    fun getStudentFullResults(@Query("reg_no",) regNo: Int,@Query("eiin") eiin:String): Call<List<Getdata>>
+    fun getStudentFullResults(@Query("reg_no") regNo: Int,@Query("eiin") eiin:String): Call<List<Getdata>>
 
 
     @POST("nazmul/subscription/otp/request")
@@ -61,6 +61,11 @@ interface ApiService {
 
     @POST("nazmul/subscription/unsubscribe")
     fun unsubscribe(@Body unsubscribeRequestParameters: UnsubscribeRequestParameters): Call<UnsubscribeResponse>
-}
 
+    @POST("create")
+    fun createid(@Body create: create): Call<create>
+
+    @GET("CreateInfo")
+    fun createinfo(@Query("eiin") eiin: String) : Call<List<create>>
+}
 

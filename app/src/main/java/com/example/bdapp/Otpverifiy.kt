@@ -1,15 +1,9 @@
 package com.example.bdapp
 
-//import androidx.compose.material3.OutlinedTextFieldDefaults
-//import com.example.abartry.RetrofitStuffs.MyApiService
-//import com.example.abartry.RetrofitStuffs.ServiceBuilder
-//import com.example.abartry.data.ApiResponse
-//import com.example.abartry.data.RequestParameters
-//import com.example.abartry.ui.theme.AbarTryTheme
+
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,7 +13,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -107,61 +100,8 @@ class Otpverifiy {
                             ) {
                                 if (response.isSuccessful) {
                                     val apiResponse = response.body()
-                                    Toast.makeText(toastContext,"OTP verified successfully", Toast.LENGTH_LONG).show()
-                                   // Log.d("MyActivity", "OTP verified successfully: $apiResponse")
-                                    val BASE_URL = "http://45.90.123.6:3000/"
-                                    val apiService: ApiService by lazy {
-                                        Retrofit.Builder()
-                                            .baseUrl(BASE_URL)
-                                            .addConverterFactory(GsonConverterFactory.create())
-                                            .build()
-                                            .create(ApiService::class.java)
-                                    }
-                                    val verifyParametersStatus = VerifyParametersStatus(
-                                        appId = "APP_119158",
-                                        password = "6a553912e964f8ec308cd563b034fad1",
-                                        mobile = MainActivity.requestParameters.mobile
-                                    )
-                                    val requestCall = apiService.verifySubscription(verifyParametersStatus)
-
-                                    requestCall.enqueue(object : Callback<StatusResponse> {
-                                        override fun onResponse(call: Call<StatusResponse>, response: Response<StatusResponse>) {
-
-                                            if (response.isSuccessful) {
-                                                val apiResponse = response.body()
-                                                Toast.makeText(toastContext,"Subscription Status verified successfully", Toast.LENGTH_LONG).show()
-                                                if(apiResponse?.subscriptionStatus!="REGISTERED"){
-                                                    Log.e("MyActivity", "Failed to verify Subscription Status: ${response.errorBody()?.string()}")
-                                                    navController.navigate("subscribe")
-                                                }
-                                                else{
-                                                    Log.e("MyActivity", "Failed to verify Subscription Status: ${response.errorBody()?.string()}")
-                                                    navController.navigate("unsubscribe")
-                                                }
-                                               // Toast.makeText(toastContext,"Subscription Status verified successfully", Toast.LENGTH_LONG).show()
-                                                Log.d("MyActivity", "Subscription Status verified successfully: $apiResponse")
-                                            } else {
-                                                val apiResponse = response.body()
-                                                Toast.makeText(toastContext,"Subscription Status verified successfully", Toast.LENGTH_LONG).show()
-                                                if(apiResponse?.subscriptionStatus!="REGISTERED"){
-                                                    navController.navigate("subscribe")
-                                                }
-                                                else{
-                                                    navController.navigate("unsubscribe")
-                                                }
-                                                //
-
-                                                Toast.makeText(toastContext,"Failed to verify Subscription Status", Toast.LENGTH_LONG).show()// Handle unsuccessful response
-                                                Log.e("MyActivity", "Failed to verify Subscription Status: ${response.errorBody()?.string()}")
-                                            }
-                                        }
-                                        override fun onFailure(call: Call<StatusResponse>, t: Throwable) {
-                                            // Handle failure
-
-                                            Toast.makeText(toastContext,"Network error", Toast.LENGTH_LONG).show()
-                                            Log.e("MyActivity", "Network error: ${t.message}")
-                                        }
-                                    })
+                                   // if(response.code()==200)
+                                    navController.navigate("createaccount")
 
                                 } else {
 

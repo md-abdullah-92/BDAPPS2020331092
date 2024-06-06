@@ -49,3 +49,8 @@ data class Eiininfo (
     val  email: String,
     val registerstatus: Boolean
 )
+data class create(
+    var eiin: String,
+    var phone: String,
+    var password: String
+)

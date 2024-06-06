@@ -126,8 +126,8 @@ class databaseinfo {
                                 val apiResponse = response.body()
                                 Toast.makeText(toastContext, "Unsubscription request sent successfully: ${response.code()}", Toast.LENGTH_SHORT).show()
                                 val verifyParametersStatus = VerifyParametersStatus(
-                                    appId = "APP_11883",
-                                    password = "cab1c32cdbe7b1489ec6048e33296a43",
+                                    appId = "APP_119158",
+                                    password = "6a553912e964f8ec308cd563b034fad1",
                                     mobile = MainActivity.requestParameters.mobile
                                 )
                                 val requestCall = apiService.verifySubscription(verifyParametersStatus)
