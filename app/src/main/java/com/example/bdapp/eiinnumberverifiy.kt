@@ -167,7 +167,7 @@ class eiinnumberverifiy {
                                 navController.navigate("enterotp")
                             } else {
                                 Toast.makeText(context, "Failed to send OTP", Toast.LENGTH_LONG).show()
-                                navController.navigate("enterotp")
+                              //  navController.navigate("enterotp")
                             }
                         } else {
                             Toast.makeText(context, "Failed to send OTP", Toast.LENGTH_LONG).show()
@@ -187,11 +187,12 @@ class eiinnumberverifiy {
         }
 
         private fun createApiService(baseUrl: String): ApiService {
-            return Retrofit.Builder()
+            val retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(ApiService::class.java)
+            Log.d(TAG, "Retrofit created with baseUrl: $baseUrl")
+            return retrofit.create(ApiService::class.java)
         }
     }
 }

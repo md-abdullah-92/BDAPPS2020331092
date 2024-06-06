@@ -1,15 +1,8 @@
 package com.example.bdapp
 
-
 import android.util.Log
 import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
@@ -28,11 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,12 +32,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Otpverifiy {
     companion object {
+        private const val TAG = "OtpVerify"
+
         @Composable
         fun EnterOTP(navController: NavController) {
             val toastContext = LocalContext.current
-            var value by rememberSaveable {
-                mutableStateOf("");
-            }
+            var value by rememberSaveable { mutableStateOf("") }
+
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -74,49 +66,47 @@ class Otpverifiy {
                         .padding(10.dp)
                 )
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Button(
+                        onClick = {
+                            val BASE_URL = "http://45.90.123.6:3000/"
+                            val apiService: ApiService by lazy {
+                                Retrofit.Builder()
+                                    .baseUrl(BASE_URL)
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build()
+                                    .create(ApiService::class.java)
+                            }
+                            MainActivity.verifyParameters.otp = value
+                            val requestCall = apiService.verifyOtp(MainActivity.verifyParameters)
 
-
-                    Button(onClick = {
-                        val BASE_URL = "http://45.90.123.6:3000/"
-                        val apiService: ApiService by lazy {
-                            Retrofit.Builder()
-                                .baseUrl(BASE_URL)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build()
-                                .create(ApiService::class.java)
-                        }
-                        MainActivity.verifyParameters.otp = value
-                        val requestCall = apiService.verifyOtp(MainActivity.verifyParameters)
-
-                        requestCall.enqueue(object : Callback<OtpVerifyRespone> {
-                            override fun onResponse(
-                                call: Call<OtpVerifyRespone>,
-                                response: Response<OtpVerifyRespone>
-                            ) {
-                                if (response.isSuccessful) {
-                                    val apiResponse = response.body()
-                                   // if(response.code()==200)
-                                    navController.navigate("createaccount")
-
-                                } else {
-
-                                    Toast.makeText(toastContext,"Failed to verify OTP", Toast.LENGTH_LONG).show()// Handle unsuccessful response
-                                    Log.e("MyActivity", "Failed to verify OTP: ${response.errorBody()?.string()}")
+                            requestCall.enqueue(object : Callback<OtpVerifyRespone> {
+                                override fun onResponse(
+                                    call: Call<OtpVerifyRespone>,
+                                    response: Response<OtpVerifyRespone>
+                                ) {
+                                    if (response.isSuccessful) {
+                                        val apiResponse = response.body()
+                                        Log.d(TAG, "OTP verified successfully: $apiResponse")
+                                        navController.navigate("createaccount")
+                                    } else {
+                                        val errorBody = response.errorBody()?.string()
+                                        Toast.makeText(toastContext, "Failed to verify OTP", Toast.LENGTH_LONG).show()
+                                        Log.e(TAG, "Failed to verify OTP: $errorBody")
+                                    }
                                 }
-                            }
-                            override fun onFailure(call: Call<OtpVerifyRespone>, t: Throwable) {
 
-                                Toast.makeText(toastContext,"Network error", Toast.LENGTH_LONG).show()// Handle failure
-
-                                Log.e("MyActivity", "Network error: ${t.message}")
-                            }
-                        })
-                    }, modifier = Modifier.width(130.dp)) {
+                                override fun onFailure(call: Call<OtpVerifyRespone>, t: Throwable) {
+                                    Toast.makeText(toastContext, "Network error", Toast.LENGTH_LONG).show()
+                                    Log.e(TAG, "Network error: ${t.message}")
+                                }
+                            })
+                        },
+                        modifier = Modifier.width(130.dp)
+                    ) {
                         Text(text = "Verify")
                     }
                 }

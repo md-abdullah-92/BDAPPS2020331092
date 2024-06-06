@@ -52,7 +52,7 @@ class subscribepage() {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Successfully verified",
+                    text = "Successfully Logged In",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
@@ -97,7 +97,10 @@ class subscribepage() {
                         ) {
                             if (response.isSuccessful) {
                                 val apiResponse = response.body()
-                                Toast.makeText(toastContext, "Subscription request sent :${response.code()}", Toast.LENGTH_SHORT).show()
+                                apiResponse?.let {
+                                    Log.d("MyActivity", "Subscription message: ${it}")
+                                    Toast.makeText(toastContext, "Subscription request sent :${response.code()}", Toast.LENGTH_SHORT).show()
+                                }
                                 val verifyParametersStatus = VerifyParametersStatus(
                                     appId = "APP_119158",
                                     password = "6a553912e964f8ec308cd563b034fad1",
@@ -109,6 +112,9 @@ class subscribepage() {
                                     override fun onResponse(call: Call<StatusResponse>, response: Response<StatusResponse>) {
                                         if (response.isSuccessful) {
                                             val apiResponse = response.body()
+                                            apiResponse?.let {
+                                                Log.d("MyActivity", "Verification message: ${it}")
+                                            }
                                             if(apiResponse?.subscriptionStatus=="REGISTERED"){
                                                 Toast.makeText(toastContext, "Subscribed successfully: ${response.code()}", Toast.LENGTH_SHORT).show()
                                                 navController.navigate("unsubscribe")
@@ -120,7 +126,7 @@ class subscribepage() {
                                     }
                                     override fun onFailure(call: Call<StatusResponse>, t: Throwable) {
                                         // Handle failure
-                                        Toast.makeText(toastContext, "Failed to Unsubscribe ${response.code()}", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(toastContext, "Failed to Unsubscribe ${t}", Toast.LENGTH_SHORT).show()
                                         Log.e("MyActivity", "Network error: ${t.message}")
                                     }
                                 })
