@@ -78,7 +78,7 @@ Student App (Android)
 > Replace this with your actual schema diagram
 
 <p align="center">
-  <img src="https://via.placeholder.com/800x400.png?text=Database+Schema" alt="Database Schema" width="600"/>
+  <img src="https://github.com/md-abdullah-92/BDAPPS2020331092/blob/master/appimage/database/image5.png" alt="Database Schema" width="600"/>
 </p>
 
 ---
