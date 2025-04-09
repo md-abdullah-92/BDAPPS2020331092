@@ -69,17 +69,22 @@ Student App (Android)
                          |—> MySQL DB (Azure)
                          |—> bdapps OTP API
                          |—> bdapps Subscribe API
+
 ```
+<p align="center">
+  <img src="https://github.com/md-abdullah-92/BDAPPS2020331092/blob/master/appimage/database/image6.png" alt="Database Schema" width="600"/>
+</p>
 
 ---
 
-## 🗃️ Database Schema
-
-> Replace this with your actual schema diagram
+## 🗃️ Database 
 
 <p align="center">
   <img src="https://github.com/md-abdullah-92/BDAPPS2020331092/blob/master/appimage/database/image5.png" alt="Database Schema" width="600"/>
 </p>
+
+
+
 
 ---
 
